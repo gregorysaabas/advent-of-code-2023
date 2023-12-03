@@ -1,6 +1,8 @@
 mod part1_lib;
 mod part2_lib;
+
 use part2_lib::part2;
+
 fn main() {
     println!("Hello, part2!");
     let input = include_str!("./input1.txt");
@@ -12,6 +14,7 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn it_works() {
         let input = "467..114..
