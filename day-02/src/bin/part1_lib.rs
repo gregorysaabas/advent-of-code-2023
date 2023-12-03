@@ -37,7 +37,7 @@ pub struct GameInfo {
 }
 
 pub fn parse_input(input: &str) -> HashMap<usize, GameInfo> {
-    input.lines().filter_map(|line| parse_game(line)).collect()
+    input.lines().filter_map(parse_game).collect()
 }
 
 fn parse_game(line: &str) -> Option<(usize, GameInfo)> {

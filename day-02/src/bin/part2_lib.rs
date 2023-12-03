@@ -1,9 +1,9 @@
 use super::part1_lib::{BallInfo, GameInfo, parse_input};
 pub fn part2(input:&str)-> i32{
     let games = parse_input(input);
-    let gamePowers:Vec<i32> = games.values().map(get_power).collect();
+    let game_powers:Vec<i32> = games.values().map(get_power).collect();
 
-    gamePowers.iter().sum()
+    game_powers.iter().sum()
 }
 
 fn get_power(game:&GameInfo) -> i32{
@@ -13,7 +13,7 @@ fn get_power(game:&GameInfo) -> i32{
     red_max*green_max*blue_max
 }
 
-fn get_max_colour<F>(balls: &Vec<BallInfo>, color_fn: F) -> i32
+fn get_max_colour<F>(balls: &[BallInfo], color_fn: F) -> i32
     where
         F: Fn(&BallInfo) -> usize,
 {
