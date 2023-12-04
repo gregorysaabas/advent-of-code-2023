@@ -55,10 +55,17 @@ impl Accumulator {
         self.coordinates.push(coordinate);
         self.value = self.value * 10 + value as i32;
     }
+
+    fn build(&self) -> PartNumber {
+        PartNumber {
+            coordinates: self.coordinates.clone(),
+            value: self.value,
+        }
+    }
 }
 
 fn parse_line(row: usize, line: &str) -> (Vec<PartNumber>, Vec<Symbol>) {
-    let (mut numbers, symbols, mut acc) =
+    let (mut numbers, symbols, acc) =
         line.chars().enumerate().fold(
             (Vec::new(), Vec::new(), None),
             |(mut numbers, mut symbols, mut acc), (col, char)| {
@@ -68,8 +75,8 @@ fn parse_line(row: usize, line: &str) -> (Vec<PartNumber>, Vec<Symbol>) {
                 (numbers, symbols, acc)
             },
         );
-    if acc.is_some() {
-        handle_number(&mut numbers, &mut acc, '.', 0, 0);
+    if let Some(ac) = acc {
+        numbers.push(ac.build())
     }
     (numbers, symbols)
 }
@@ -79,11 +86,7 @@ fn handle_number(numbers: &mut Vec<PartNumber>, acc: &mut Option<Accumulator>, c
         let coordinate = Coordinate { row, col };
         acc.get_or_insert(Accumulator::new()).push(coordinate, digit_value);
     } else if let Some(ac) = acc.take() {
-        let part_number = PartNumber {
-            value: ac.value,
-            coordinates: ac.coordinates,
-        };
-        numbers.push(part_number);
+        numbers.push(ac.build());
     }
 }
 
