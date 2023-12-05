@@ -12,7 +12,7 @@ pub fn convert_seeds_to_locations(maps: &[Vec<MapRangeDefinition>], seeds: &[See
             println!("SeedRange {}/{}", rindex + 1, seeds.len());
             (seed_range.start..seed_range.start + seed_range.length).enumerate()
                 .map(move |(sindex, seed)| {
-                    if sindex%1000000 ==0{println!("SeedRange {}/{} Seed {}mil/{}mil", rindex+1, seeds.len(), sindex/1000000`+1, seed_range.length/1000000);};
+                    if sindex%1000000 ==0{println!("SeedRange {}/{} Seed {}mil/{}mil", rindex+1, seeds.len(), sindex/1000000+1, seed_range.length/1000000);};
                     maps.iter()
                     .fold(seed, |acc, cur| process_map(acc, cur))})
         })
